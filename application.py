@@ -14,6 +14,9 @@ import re
 # Configure application
 app = Flask(__name__)
 
+# Adds secret key
+app.secret_key = b'\xbe\xe9\x8c\xca\x88}dG\x82C"\x83\x92\xb3\xf6\x7f'
+
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
