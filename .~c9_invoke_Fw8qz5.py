@@ -621,7 +621,6 @@ def register():
                                         pass_hash=generate_password_hash(request.form.get("password")))
 
         return redirect("/")
-
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")

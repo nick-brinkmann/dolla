@@ -86,16 +86,61 @@ PYTHON (APPLICATION.PY):
 HTML:
 
     - apology.html:
+    Page rendered when a function returns apology. Displays image of cat with text describing the error that lead to the apology.
+
     - donationresults.html:
+    Page prints the results from searching for specific donations. Loads page using for loops and if statements in jinja that determine what information should be
+    printed and what actions to allow the user to take.
+
     - donatiosn.html:
+    Loads all existing donations using a jinja for loop to iterate over all of them and printing the appropriate information.
+
     - donreq.html:
+    Simpy displays a form for the user to fill out if they want to make a new donation request. This information gets accessed in applications.py and updates the database.
+
     - history.html:
+    Loads all transactions in which the user is involved. Uses a for loop to iterate over all of them and prints the appropriate information.
+
     - index.html:
+    The homepage of the website. When a user is logged in it displays the user's balance which is accessed using jinja and the users "cash" attribute. It also offers the ability to add
+    a card or traansfer funds which are both forms. In either form, the information that is entered is accessed in application.py and the databases are updated accordingly. There is also
+    a list of money requests and friend requests which are generated using queries in application.py and using for loops in jinja to iterate over them and print the appropriate information.
+    These offer actions to accept or decline which, when clicked, will update the database accordingly. The bottom of the page has a friends table which portrays all of the user's friends'
+    usernames and full names. Each has the option to message which simply redirects the user to the messages page with the indicated conversation already open.
+
     - layout.htl:
+    Determines the main layout of the page. Offers the skeleton to which every other page simply adds information to. If the user is logged in it displays the navigation bar to all other pages.
+    If no user is logged in the navigation bar only offers the login and register pages.
+
     - login.html:
+    This page allows a user to login by asking them to input their username and password. The information is then accessed in appliation.py to check the information against the database and either
+    grant the user access to the account or return an apology.
+
     - messages.html:
+    This page displays all conversations in order of most recently active to the left of the screen. The default screen has a drop down menu with the user's friends, a text box and a "send" button
+    which allows the user to indicate who they want to message and then send the message. This will then redirect to a page where this specified conversation is loaded along with all previous messages.
+    If instead the user clicks "open" on one of the conversations on the left side of the apge then the website reloads with the specified conversation open on the right of the page. When a conversation
+    is loaded the user will see an "Enter message here" field where they can type a new message and click "send" to send new messages. If a new message has been received the user will see it when the
+    page is reloaded.
+
     - register.html:
+    The register page is only offered if no user is logged in. It allows for a new account to be made and asks for a fullname, username and password. This information is accessed in application.py which
+    verifies that all input is valid and then updates the databse accordingly, adding a new user to the users table.
+
     - request.html:
+    This page is simply a form that offers a drop down menu with the users friends, an input text field and an amount field. This information is then accessed in application.py where it updates the transactions
+    table in the database and sends the request to the specified user.
+
     - searchresults.html:
+    This page is accessed when the user searches (via username or name) in the navigation bar and clicks "search". The page then loads results for users with similar usernames or names to that of the user's input
+    by using jinja for loops and if statements to iterate over the results of a query and output the appropriate information. Each user loaded will have the option to send friend request if they are still not friends,
+    "friend request pending" if the user has yet to respond to the request, or "message" if the two users are already friends. Then, application.py accessses the information and redirects to the appropriate pages
+    depending on what action was taken.
+
     - send.html:
+    This page is very similar to requests as it also is a form with a drop down menu of friends, an input text field and an amount field. The user indicated to whom they are sending money, provides an explanation or
+    message, and indicated the amount they intend to send. Then, in application.py, the information is accessed and the approriate tables are updated in the database.
+
     - settings.html:
+    This page allows the user to change their password or change the card they currently have on file. Each of these is an independent form which then passes the input information into application.py and updates the
+    database accordingly.
