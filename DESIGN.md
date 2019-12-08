@@ -84,3 +84,18 @@ PYTHON (APPLICATION.PY):
 
 
 HTML:
+
+    - apology.html:
+    - donationresults.html:
+    - donatiosn.html:
+    - donreq.html:
+    - history.html:
+    - index.html:
+    - layout.htl:
+    - login.html:
+    - messages.html:
+    - register.html:
+    - request.html:
+    - searchresults.html:
+    - send.html:
+    - settings.html:
