@@ -16,13 +16,14 @@ This was done using 7 tables total which include:
 
     - donation_reqs (donation requests):
     Whenever someone made a new donation request we updated this table by inserting a new row consisting of the requester's user id, request title and description, goal amount,
-    current amount achieved and date that it was posted. There is also a boolean value named "reached" which is false by default, but changes to true when the goal is met.
+    current amount achieved, date that it was posted and a unique id for the request itself. There is also a boolean value named "reached" which is false by default, but changes
+    to true when the goal is met.
 
     - donations (donation transactions):
-
+    Every donation made is documented in this table by inserting a row consisting of the donor's user id, the id of the donation they donated to, and the amount that was donated.
 
     - friends (friendship status between users):
-
+    When a friend request is made there is a new entry into the friends table consisting of the the sender id, recipient id and
 
     - messages (all messages):
 
