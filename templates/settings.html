@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <!-- Change password form -->
+        <div class="card card-body bg-light m-3" style="width: 25rem;">
+            <h5 class="card-title"><strong>Change Password</strong></h5>
+            <form action="/pass_change" method="post">
+              <input type="password" name="current_password" placeholder="Current Password">
+              <input type="password" name="new_password" placeholder="New Password">
+              <input type="password" name="confirm" placeholder="Confirm New Password">
+              <button type="submit" class="btn btn-primary">Change</button>
+            </form>
+            <small class="form-text text-muted">Change your password.</small>
+        </div>
+
+        <!-- User has card on file -->
+        {% if cof == 1 %}
+            <!-- Change credit card form -->
+            <div class="card card-body bg-light m-3" style="width: 25rem;">
+                <h5 class="card-title"><strong>Change Credit Card</strong></h5>
+                <form action="/change_card" method="post">
+                  <input type="text" autocomplete="off" name="card_number" placeholder="Card Number">
+                  <input type="password" name="password" placeholder="Verify Password">
+                  <button type="submit" class="btn btn-primary">Change</button>
+                </form>
+                <small class="form-text text-muted">Change the credit card you use for transactions.</small>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Change password form -->
+    <!--<form action="/pass_change" method="post" class="form-inline">-->
+    <!--    <div class="form-group">-->
+    <!--        <label for="pass_change">Change Password</label>-->
+    <!--    </div>-->
+    <!--    <div class="form-group">-->
+    <!--        <input type="password" class="form-control"  name = "current_password" placeholder="Current Password">-->
+    <!--    </div>-->
+    <!--    <div class="form-group">-->
+    <!--        <input type="password" class="form-control"  name = "new_password" placeholder="New Password">-->
+    <!--    </div>-->
+    <!--    <div class="form-group">-->
+    <!--        <input type="password" class="form-control"  name = "confirm" placeholder="Confirm New Password">-->
+    <!--    </div>-->
+    <!--    <div class="form-group">-->
+    <!--        <button type="submit" class="btn btn-primary">Submit</button>-->
+    <!--    </div>-->
+    <!--</form>-->
+
+    <!-- Add funds form -->
+    <!--<div class="card card-body bg-light m-3" style="width: 25rem;">-->
+    <!--    <h5 class="card-title"><strong>Add Funds</strong></h5>-->
+    <!--    <form action="/add_funds" method="post">-->
+    <!--      <input class="m-1" type="number" name="card_number" placeholder="Card Number">-->
+    <!--      <input class="m-1" type="number" min="0.01" step="0.01" max="10000" name="amount" placeholder="Amount">-->
+    <!--      <button class="m-1" type="submit" class="btn btn-primary">Submit</button>-->
+    <!--    </form>-->
+    <!--    <small class="form-text text-muted">Please input the card number from which you are transferring funds.</small>-->
+    <!--</div>-->
+
+    <!-- Change card number form -->
+    <!--<form action="/change_card" method="post" class="form-inline">-->
+    <!--    <div class="form-group">-->
+    <!--        <label for="add_funds">Change Credit Card</label>-->
+    <!--    </div>-->
+    <!--    <div class="form-group" >-->
+    <!--        <input type="text" class="form-control" name="card_number" placeholder="Card Number">-->
+    <!--    </div>-->
+    <!--    <div class="form-group" >-->
+    <!--        <input type="password" class="form-control" name="password" placeholder="Verify Password">-->
+    <!--    </div>-->
+    <!--    <div class="form-group">-->
+    <!--        <button type="submit" class="btn btn-primary">Change</button>-->
+    <!--    </div>-->
+    <!--</form>-->
+    <!--<small class="form-text text-muted">Change the credit card you use for transactions.</small>-->
+{% endblock %}

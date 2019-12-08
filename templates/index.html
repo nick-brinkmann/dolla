@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+  <div class="row">
+    <div class="card card-body text-white bg-primary m-3" style="width: 18rem;">
+      <h4 class="card-title"><strong>Current Balance</strong></h4>
+      <h5 class="card-title">{{ balance }}</h5>
+    </div>
+    {% if cof == 1 %}
+      <!--<div class="card card-body bg-light m-3 floatRight" style="width: 25rem;">-->
+      <!--  <h4 class="card-title"><strong>Transfer Funds</strong></h5>-->
+      <!--  <a href="/settings" class="btn btn-info">Transfer to account of card on file</a>-->
+      <!--</div>-->
+
+      <div class="card card-body bg-light m-3 floatRight" style="width: 25rem;">
+        <h5 class="card-title"><strong>Transfer Funds</strong></h5>
+        <form action="/transfer_funds" method="post">
+          <input type="number" min="0.01" step="0.01" class="form-control" name="amount" placeholder="Amount">
+          <input type="password" class="form-control" name="password" placeholder="Verify Password">
+          <button type="submit" class="btn btn-primary">Transfer Funds</button>
+        </form>
+        <small class="form-text text-muted">Transfer funds from your balance to the bank account of your card on file.</small>
+      </div>
+
+    {% else %}
+      <div class="card card-body bg-light m-3 floatRight" style="width: 25rem;">
+        <h5 class="card-title"><strong>Add Credit Card</strong></h5>
+        <form action="/add_card" method="post">
+          <input type="text" class="form-control" name="card_number" placeholder="Card Number">
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        <small class="form-text text-muted">Add a credit card to your profile, from which we will automatically transfer funds if your balance is insufficient.</small>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <!-- Creats table for money requests -->
+    <div class="floatLeft">
+      <table class="table table-bordered table-striped m-3">
+          {% if amount_requests == 0 %}
+          <thead class="thead-dark">
+            <th colspan="5"><strong>Money Requests</strong></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0 requests.</td>
+            </tr>
+          </tbody>
+          {% else %}
+            <thead class="thead-dark">
+              <th colspan="5"><strong>Money Requests</strong>: {{ amount_requests }}</th>
+            </thead>
+            <tbody>
+            <thead>
+              <tr>
+                <th scope="col">Requester</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Message</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+
+            {% for request in requests %}
+              <tr>
+                <td>{{ request["sender"] }}</td>
+                <td>{{ request["amount"] }}</td>
+                <td>{{ request["msg"] }}</td>
+                <td>
+                  <form action="/accept" method="post">
+                    <button type="submit" class="btn btn-primary" name = "{{ request["id"] }}">Accept</button>
+                  </form>
+                </td>
+                <td>
+                  <form action="/decline" method="post">
+                    <button type="submit" class="btn btn-danger" name = "{{ request["id"] }}">Decline</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+      <!-- Creates table for Friend Requests -->
+    <div class="floatRight">
+      <table class="table table-bordered table-striped m-3">
+        <thead class="thead-dark">
+          <th colspan="5"><strong>Friend Requests</strong></th>
+        </thead>
+        <tbody>
+          {% if amount_friend_requests == 0 %}
+          <tr>
+            <td>No friend requests.</td>
+          </tr>
+          {% else %}
+            {% for request in friend_requests %}
+            <tr>
+              <td>{{ request["sender"] }}</td>
+              <td>
+                <form action="addfriend" method="post">
+                  <button type="submit" class="btn btn-primary" name="{{ request["id"] }}">Accept</button>
+                </form>
+              </td>
+              <td>
+                <form action="declinefriend" method="post">
+                  <button type="submit" class="btn btn-danger" name="{{ request["id"] }}">Decline</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-striped m-3">
+    <thead class="thead-dark">
+      <th colspan="3"><strong>Friends</strong></th>
+    </thead>
+    <tbody>
+      {% if amount_friends == 0 %}
+        <tr>
+          <td>Your friends will appear here!</td>
+        </tr>
+      {% else %}
+          {% for friend in friends %}
+            <tr>
+              <td>{{ friend["username"] }}</td>
+              <td>{{ friend["fullname"] }}</td>
+              <td style="width: 20%;">
+                <form action="/messages" method="get">
+                  <button type="submit" class="btn btn-info" name="conversation_id" value="{{ friend["convo_id"] }}">Message</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
+{% endblock %}

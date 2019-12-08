@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for name in names %}
+          <tr>
+            <td>{{ name["username"] }}</td>
+            <td>{{ name["fullname"] }}</td>
+            <td>
+              {% if name["isfriend"] == 0 %}
+                <form action="/friendrequest" method="post">
+                  <button type="submit" class="btn btn-outline-primary" name="{{ name["username"] }}">Send Friend Request</button>
+                </form>
+              {% elif name["isfriend"] == 1 %}
+                <form action="/messages" method="get">
+                  <button type="submit" class="btn btn-info" name="conversation_id" value="{{ name["convo_id"] }}">Message</button>
+                </form>
+              {% elif name["isfriend"] == None %}
+                <button type="submit" class="btn btn-info" disabled>Friend Request Pending</button>
+              {% elif name["id"] == user_id %}
+                It's you!
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
