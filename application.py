@@ -608,17 +608,12 @@ def register():
             return apology("sorry, username already exists")
 
         # If no rows are returned then user can be registered with that username
-        # else:
-        #     db.execute("INSERT INTO users (username, fullname, hash) VALUES (:username, :fullname, :pass_hash)", username=request.form.get("username"),
-        #                 fullname = request.form.get("fullname"), pass_hash=generate_password_hash(request.form.get("password")))
+        else:
+            db.execute("INSERT INTO users (username, fullname, hash) VALUES (:username, :fullname, :pass_hash)", username=request.form.get("username"),
+                        fullname = request.form.get("fullname"), pass_hash=generate_password_hash(request.form.get("password")))
 
-        # new_id = db.execute("SELECT id FROM users WHERE username = :username", username = request.form.get("username"))
-        # session["user_id"] = new_id[0]["id"]
-
-        # Trying to debug
-        session["user_id"] = db.execute("INSERT INTO users (username, fullname, hash) OUTPUT Inserted.id VALUES (:username, :fullname, :pass_hash)",
-                                        username=request.form.get("username"), fullname = request.form.get("fullname"),
-                                        pass_hash=generate_password_hash(request.form.get("password")))
+        new_id = db.execute("SELECT id FROM users WHERE username = :username", username = request.form.get("username"))
+        session["user_id"] = new_id[0]["id"]
 
         return redirect("/")
 

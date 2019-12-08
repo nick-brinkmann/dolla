@@ -84,16 +84,20 @@ PYTHON (APPLICATION.PY):
 
 
 HTML:
+Most HTML pages require queries from application.py to pass the appropriate information to the page and then use jinja to print the information. If the page has a form then the
+information is accessed in appliation.py via the names and values of each input field, which then allows the appropriate changes to be made in the database through application.py.
 
     - apology.html:
     Page rendered when a function returns apology. Displays image of cat with text describing the error that lead to the apology.
 
     - donationresults.html:
     Page prints the results from searching for specific donations. Loads page using for loops and if statements in jinja that determine what information should be
-    printed and what actions to allow the user to take.
+    printed and what actions to allow the user to take. If a user makes a donation to one of the donation requests then the information is accessed in application.py
+    and the appropriate data tables are updated.
 
     - donatiosn.html:
-    Loads all existing donations using a jinja for loop to iterate over all of them and printing the appropriate information.
+    Loads all existing donations using a jinja for loop to iterate over all of them and printing the appropriate information. If a donation is made then the input information
+    is accessed in application.py and the appropriate tables are updated in the database.
 
     - donreq.html:
     Simpy displays a form for the user to fill out if they want to make a new donation request. This information gets accessed in applications.py and updates the database.
