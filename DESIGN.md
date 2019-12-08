@@ -10,10 +10,13 @@ This was done using 7 tables total which include:
 
     - convos (conversations):
     Whenever a friendship is confirmed a new entry was made to create a conversation between the two users involved in the friendship. This included the user id for each
-    user (foreign key referencing the users table) and a unique id for the conversation itself.
+    user (foreign key referencing the users table) and a unique id for the conversation itself. This helped when we needed to identify which conversations to open.
+        * We now realize that a better design may have been to make the "conversations" based on the friendships table as it is inefficient to have this table for the sole
+        purpose of opening conversations. However, due to time constraints we were unable to change all of our code to be reliant on the friends table.
 
     - donation_reqs (donation requests):
-
+    Whenever someone made a new donation request we updated this table by inserting a new row consisting of the requester's user id, request title and description, goal amount,
+    current amount achieved and date that it was posted. There is also a boolean value named "reached" which is false by default, but changes to true when the goal is met.
 
     - donations (donation transactions):
 

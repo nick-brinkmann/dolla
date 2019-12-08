@@ -35,7 +35,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///data.db")
+# db = SQL("sqlite:///data.db")
+db = SQL("postgres://qxoohwegzhpiry:2000cce701ee5c30d6dbd66dbe0b76e21dc456acd4064c0687fe16aff63c5733@ec2-54-225-95-183.compute-1.amazonaws.com:5432/d32v5o8mbggho1")
 
 
 # INDEX
@@ -485,8 +486,6 @@ def messages():
         else:
             recipient_id = conversation[0]["user1_id"]
 
-        print(request.form.get("conversation_id"))
-        print(request.form.get("friend"))
         db.execute("INSERT INTO messages (sender_id, recipient_id, content, convo_id) VALUES (:sender_id, :recipient, :content, :convo_id)", sender_id = session["user_id"],
                     recipient = recipient_id , content = message, convo_id = int(request.form.get("conversation_id")))
 
