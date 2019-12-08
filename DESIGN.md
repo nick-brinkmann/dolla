@@ -23,16 +23,26 @@ This was done using 7 tables total which include:
     Every donation made is documented in this table by inserting a row consisting of the donor's user id, the id of the donation they donated to, and the amount that was donated.
 
     - friends (friendship status between users):
-    When a friend request is made there is a new entry into the friends table consisting of the the sender id, recipient id and
+    When a friend request is made there is a new entry into the friends table consisting of a unique id, the the sender id, recipient id and a boolean named "confirmed" which is set to NULL by
+    default. Once the recipient responds with either "Accept" or "Decline" the table entry gets updated changing "confirmed" to either 1 or 0 accordingly. Each friend request has a
+    unique id. If the request is denied, the user can make a new request, and a new entry will be made. This table allows us to query the database later, accessing users whose friendship status
+    set, in other words "confirmed" has been set equal to 1. This way we allow certain interactions to occur only between users that are friends.
 
     - messages (all messages):
-
+    The messages table stores all messages sent between users. When a message is sent a new entry is made with a unique id, convo id, sender id, recipient id, the content and a date. The
+    sender and recipient ids reference the users table, while the convo id references the convos table. Setting up the table this way helps us organize when to load which messages, based
+    on which conversation they belong to.
 
     - transactions (all transactions):
-
+    Whenever the user sends money, or accepts a money request from another user, the transactions table is updated with a new transaction. This entry includes the sender id, recipient id,
+    amount, message/explanation and date. Each transaction has a boolean of "confirmed" whose value depends on the type of transaction. If the transaction is a "send" transaction
+    then its value is 1 meaning that it has been confirmed in which case we update the users' information (balance, transaction history, etc.). If he transaction is a "request" then
+    its value is set to NULL and only when the recipient of the request either accepts or declines it is its value set to 1 or 0 depending on the response. If it's accepted then, again,
+    both users' information is updated.
 
     - users (user information)
-
+    The users table manages all information relating to individual users. This stores their unique id (assigned upon registration), full name, username, password hash, balance (cash), as well
+    as a boolean named "cof" for "card on file" which is set to false by default and changed to true when a card is added. If a card is added then its hash it also added to the users information.
 
 
 PYTHON (APPLICATION.PY):
